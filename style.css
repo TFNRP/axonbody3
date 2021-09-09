@@ -1,0 +1,70 @@
+@font-face {
+  font-family:"Klartext Mono Bold";
+  src: url("KlartextMonoBold.ttf") format("truetype");
+}
+
+p {
+  display:inline;
+  text-align:left;
+  font-family:"Klartext Mono Bold", monospace;
+  font-weight:600;
+  font-style:normal;
+  text-shadow:-1px -1px 0 black,
+              1px -1px 0 black,
+              -1px 1px 0 black,
+              1px 1px 0 black;
+  color:rgb(255,255,255);
+  font-size:1.2vw;
+  margin:1%;
+}
+
+body {
+  user-select:none;
+  overflow:hidden;
+}
+
+p,button,div,svg,img,input,select {
+  position:absolute;
+}
+
+#ui {
+  display:none;
+}
+
+#date {
+  top:3vw;
+  left:79.5vw;
+  width:17vw;
+}
+
+#text {
+  top:4.2vw;
+  left:79.5vw;
+  width:17vw;
+}
+
+#logo {
+  top:2.6vw;
+  left:95vw;
+  width:3.5vw;
+  height:3.5vw;
+}
+
+svg {
+  display:none;
+  top:2.5vw;
+  left:81vw;
+  width:18vw;
+  height:3.8vw;
+  z-index:-1;
+}
+
+rect {
+  fill:rgb(40,40,40);
+  width:100%;
+  height:100%;
+}
+
+img {
+  opacity: .75;
+}
