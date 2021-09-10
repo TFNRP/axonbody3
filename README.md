@@ -2,8 +2,12 @@
 
 ## About
 
-The most realistic Axon Body 3 script.
-![img](https://i.imgur.com/1QQ5LmF.png)  
+The most realistic Axon Body 3 script.  
+![img](https://i.imgur.com/Kzf8WpA.png "Real AB3 overlay")  
+![img](https://i.imgur.com/1QQ5LmF.png "This script")  
+
+Image 1: a real AB3 overlay  
+Image 2: this script  
 
 This script is intended for use with developers as a baseplate.  
 TFNRP's Axon Body 3 script's goal is to be as realistic as possible.  
