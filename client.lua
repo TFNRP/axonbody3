@@ -76,13 +76,14 @@ RegisterNetEvent("AB3:SetState", function(state)
 end)
 
 RegisterNetEvent("AB3:ServerBeep", function(netId)
+  local otherPed = GetPlayerPed(GetPlayerFromServerId(netId))
   local ped = PlayerPedId()
-  if (IsPedInAnyVehicle(ped) == IsPedInAnyVehicle(netId)) or not IsPedInAnyVehicle(ped) then
+  if (IsPedInAnyVehicle(ped) == IsPedInAnyVehicle(otherPed)) or not IsPedInAnyVehicle(ped) then
     local volume = 0.05
     local radius = 10
     
     local playerCoords = GetEntityCoords(ped);
-    local targetCoords = GetEntityCoords(NetworkGetEntityFromNetworkId(netId), true);
+    local targetCoords = GetEntityCoords(otherPed);
     
     local distance = Vdist(playerCoords.x, playerCoords.y, playerCoords.z, targetCoords.x, targetCoords.y, targetCoords.z);
     local distanceVolumeMultiplier = volume / radius;
@@ -105,9 +106,10 @@ function ActivateAB3()
 
   -- beeper
   Citizen.CreateThread(function()
+    Citizen.Wait(12e4)
     while activated do
-      Citizen.Wait(12e4)
       TriggerServerEvent("AB3:ClientBeep")
+      Citizen.Wait(12e4)
     end
   end)
 
