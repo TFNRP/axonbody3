@@ -8,4 +8,7 @@ Config = {
   --- keybind to use for on/off command. can be nil for no keybind
   --- @type string
   CommandBinding = 'u',
+  --- whether the axon overlay is also visible in third person
+  --- @type boolean
+  ThirdPersonMode = false,
 }

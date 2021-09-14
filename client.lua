@@ -119,7 +119,7 @@ function ActivateAB3()
   Citizen.CreateThread(function()
     while activated do
       Citizen.Wait(0)
-      if GetFollowPedCamViewMode() == 4 and not hudForceHide then
+      if (GetFollowPedCamViewMode() == 4 or Config.ThirdPersonMode) and not hudForceHide then
         if not hudPresence then
           SetHudPresence(true)
         end
