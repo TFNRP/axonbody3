@@ -49,11 +49,8 @@ $ git clone https://github.com/TFNRP/axonbody3.git
 
 ## Configuration
 
-Replace all `exports.framework:IsLocalClientOnDuty` with something relating to your own framework.  
-`client.lua:120` for the overlay to be visible in third-person, change to:
-```lua
-      if not hudForceHide then
-```
+In `config.lua`, change `CommandAccessHandling` to match your framework. If you would like to allow everyone to use the script, just return `true`.  
+You can also change `ThirdPersonMode` to `true` if you would like the axon overlay to be visible in third-person.  
 
 ## Credits
 
