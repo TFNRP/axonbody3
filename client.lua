@@ -22,13 +22,15 @@ end)
 
 -- Activation and deactivation
 
-RegisterKeyMapping('axon', 'Toggle Axon Body 3', 'keyboard', 'u') 
+if Config.CommandBinding then
+  RegisterKeyMapping('axon', 'Toggle Axon Body 3', 'keyboard', Config.CommandBinding)
+end
 RegisterCommand('axon', function ()
   if activated then
     DeactivateAB3()
     ShowNotification("~y~Axon Body 3~s~ has ~r~stopped recording~s~.")
   else
-    if not exports.framework:IsLocalClientOnDuty() then
+    if not Config:CommandAccessHandling() then
       ShowNotification("You have to be ~r~on duty~s~ to enable ~y~Axon Body 3~s~.")
     else
       ActivateAB3()
@@ -38,7 +40,7 @@ RegisterCommand('axon', function ()
 end)
 
 RegisterCommand('axonon', function ()
-  if not exports.framework:IsLocalClientOnDuty() then
+  if not Config:CommandAccessHandling() then
     ShowNotification("You have to be ~r~on duty~s~ to use ~y~Axon Body 3~s~.")
   else
     if activated then
