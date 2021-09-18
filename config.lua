@@ -3,7 +3,7 @@ Config = {
   --- @type function
   --- @return boolean
   CommandAccessHandling = function ()
-    return exports.framework:IsLocalClientOnDuty()
+    return exports.framework:GetLocalClientDuty() > 0
   end,
   --- keybind to use for on/off command. can be nil for no keybind
   --- @type string
