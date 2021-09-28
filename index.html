@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <script src="nui://game/ui/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+    integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link href="./style.css" rel="stylesheet">
   <script>
     var offset = 0,
-        setoffset = 0,
-        utc = false,
-        player = new Howl({src: ["./beep.wav"]}),
-        s = "",
-        keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      setoffset = 0,
+      utc = false,
+      player = new Howl({ src: ['./beep.wav'] }),
+      serial = '6039',
+      keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     for (var i = 0; i < 4; i++) {
-       s += keys.charAt(Math.floor(Math.random() * (keys.length)));
+      serial += keys.charAt(Math.floor(Math.random() * (keys.length)));
     }
-
-    var serial = "6039"+s;
 
     setInterval(() => {
       const now = new Date();
@@ -31,13 +32,13 @@
         )
       ) offset += 1;
       const iso = new Date(now.getTime() + (offset * 36e5)).toISOString();
-      $("#date").text(`${iso.substring(0, 10)} ${iso.substring(11, 19)} ${offset < 0 ? '-' : '+'}${Math.abs(offset).toString().padEnd(3, '0').padStart(4, '0')}`);
+      $('#date').text(`${iso.substring(0, 10)} ${iso.substring(11, 19)} ${offset < 0 ? '-' : '+'}${Math.abs(offset).toString().padEnd(3, '0').padStart(4, '0')}`);
     }, 1e3)
 
     $(() => {
-      window.addEventListener('message', function(event) {
+      window.addEventListener('message', function (event) {
         if ('AxonUIPresence' in event.data) {
-          $("#ui").css('display', event.data.AxonUIPresence ? "block" : "none");
+          $('#ui').css('display', event.data.AxonUIPresence ? 'block' : 'none');
         }
 
         if ('AxonBeep' in event.data) {
@@ -45,18 +46,20 @@
           player.play();
         }
       });
-      $("#text").text("AXON BODY 3 X"+serial);
+      $('#text').text('AXON BODY 3 X' + serial);
     });
   </script>
 </head>
+
 <body>
   <div id="ui">
     <p id="date">1337-42-00 00:00:00 +0000</p>
     <p id="text">AXON BODY 3 X60390000</p>
     <img id="logo" src="./logo.png" alt="Logo">
     <svg>
-        <rect/>
+      <rect />
     </svg>
   </div>
 </body>
+
 </html>
