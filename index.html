@@ -20,24 +20,18 @@
     var serial = "6039"+s;
 
     setInterval(() => {
-      let timedate;
-      if (utc) timedate = new Date();
-      else {
-        const now = new Date();
-        now.setTime(now.getTime() + now.getTimezoneOffset() * 6e4);
-        if (
-          now.getTimezoneOffset() <
-          Math.max(
-            new Date(now.getFullYear(), 0, 1).getTimezoneOffset(),
-            now.getTimezoneOffset()
-          )
-        ) setoffset = offset + 1;
-        else setoffset = offset;
-        timedate = new Date(now.getTime()+(setoffset * 36e5));
-      }
-
-      const iso = timedate.toISOString();
-      $("#date").text(`${iso.substring(0, 10)} ${iso.substring(11, 19)} ${offset > 0 ? '-' : '+'}${offset.toString().padEnd(3, '0').padStart(4, '0')}`);
+      const now = new Date();
+      let offset = now.getTimezoneOffset() / -60;
+      now.setTime(now.getTime() + offset * 60);
+      if (
+        now.getTimezoneOffset() <
+        Math.max(
+          new Date(now.getFullYear(), 0, 1).getTimezoneOffset(),
+          new Date(now.getFullYear(), 6, 1).getTimezoneOffset()
+        )
+      ) offset += 1;
+      const iso = new Date(now.getTime() + (offset * 36e5)).toISOString();
+      $("#date").text(`${iso.substring(0, 10)} ${iso.substring(11, 19)} ${offset < 0 ? '-' : '+'}${Math.abs(offset).toString().padEnd(3, '0').padStart(4, '0')}`);
     }, 1e3)
 
     $(() => {
