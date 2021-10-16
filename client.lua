@@ -87,7 +87,7 @@ RegisterNetEvent("AB3:ServerBeep", function(netId)
     local playerCoords = GetEntityCoords(ped)
     local targetCoords = GetEntityCoords(otherPed)
 
-    local distance = Vdist(playerCoords.x, playerCoords.y, playerCoords.z, targetCoords.x, targetCoords.y, targetCoords.z)
+    local distance = #(playerCoords - targetCoords)
     local distanceVolumeMultiplier = volume / radius
     local distanceVolume = volume - (distance * distanceVolumeMultiplier)
 
