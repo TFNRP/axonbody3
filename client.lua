@@ -83,14 +83,14 @@ RegisterNetEvent("AB3:ServerBeep", function(netId)
   if DoesEntityExist(ped) and (IsPedInAnyVehicle(ped) == IsPedInAnyVehicle(otherPed)) or not IsPedInAnyVehicle(ped) then
     local volume = 0.05
     local radius = 10
-    
-    local playerCoords = GetEntityCoords(ped);
-    local targetCoords = GetEntityCoords(otherPed);
-    
-    local distance = Vdist(playerCoords.x, playerCoords.y, playerCoords.z, targetCoords.x, targetCoords.y, targetCoords.z);
-    local distanceVolumeMultiplier = volume / radius;
-    local distanceVolume = volume - (distance * distanceVolumeMultiplier);
-    
+
+    local playerCoords = GetEntityCoords(ped)
+    local targetCoords = GetEntityCoords(otherPed)
+
+    local distance = Vdist(playerCoords.x, playerCoords.y, playerCoords.z, targetCoords.x, targetCoords.y, targetCoords.z)
+    local distanceVolumeMultiplier = volume / radius
+    local distanceVolume = volume - (distance * distanceVolumeMultiplier)
+
     if (distance <= radius) then
       SendNUIMessage({ AxonBeep = { volume = distanceVolume } })
     end
