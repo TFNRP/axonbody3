@@ -80,7 +80,7 @@ end)
 RegisterNetEvent("AB3:ServerBeep", function(netId)
   local otherPed = GetPlayerPed(GetPlayerFromServerId(netId))
   local ped = PlayerPedId()
-  if (IsPedInAnyVehicle(ped) == IsPedInAnyVehicle(otherPed)) or not IsPedInAnyVehicle(ped) then
+  if DoesEntityExist(ped) and (IsPedInAnyVehicle(ped) == IsPedInAnyVehicle(otherPed)) or not IsPedInAnyVehicle(ped) then
     local volume = 0.05
     local radius = 10
     
