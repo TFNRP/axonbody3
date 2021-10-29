@@ -3,6 +3,14 @@ local hudForceHide = false
 local hudPresence
 local activated = false
 
+-- compatibility with frameworks
+
+if GetConvar('tfnrp_framework_init') == 'true' then
+  Config.CommandAccessHandling = function ()
+    return exports.framework:GetLocalClientDuty() > 0
+  end
+end
+
 ----------------------------------------------------------
 -------------------- Commands
 ----------------------------------------------------------
