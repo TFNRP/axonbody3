@@ -14,7 +14,7 @@ Config = {
   --- whether the axon overlay is also visible in third person
   --- @type boolean
   ThirdPersonMode = false,
-  CheckModel = true, -- If turned on, it will check if the player wears a bodycam
+  CheckModel = false, -- If turned on, it will check if the player wears a bodycam
   --Format: componentID:drawableID:ABLE TO CHANGE TEXTURE (0 Unable; 1 Fully able; 2 Unable to shut off)
 	bodycam_m = { -- Bodycamcomponent used with mp_m_freemode_01
 
