@@ -2,6 +2,8 @@
 local hudForceHide = false
 local hudPresence
 local activated = false
+local disabled = false
+local bodycammodel = Config.CheckModel
 
 -- compatibility with frameworks
 
@@ -28,34 +30,70 @@ RegisterCommand('axonshow', function()
   ShowNotification("~y~Axon Body 3~s~ overlay now ~g~visible~s~.")
 end)
 
+RegisterCommand('axontoggle', function()
+local ped = PlayerPedId()  
+  if not CheckBodycam(ped) then
+    ShowNotification("You have to wear a ~r~bodycam~s~ to turn it on/off.")
+  else
+if texturechangeable == 1 then
+  if disabled then
+  disabled = false
+  SetPedComponentVariation(ped, componentID, drawableID, 0, 0)
+  ShowNotification("~y~Axon Body 3 ~g~turned on~s~.")
+  else
+  disabled = true
+  activated = false
+  SetPedComponentVariation(ped, componentID, drawableID, 2, 0)
+  ShowNotification("~y~Axon Body 3 ~r~turned off~s~.")
+  end
+  else
+  ShowNotification("Your Bodycam can't be shut off.")
+  end
+  end
+end)
+
 -- Activation and deactivation
 
 if Config.CommandBinding then
   RegisterKeyMapping('axon', 'Toggle Axon Body 3', 'keyboard', Config.CommandBinding)
 end
 RegisterCommand('axon', function ()
+local ped = PlayerPedId()
   if activated then
     DeactivateAB3()
     ShowNotification("~y~Axon Body 3~s~ has ~r~stopped recording~s~.")
   else
-    if not Config:CommandAccessHandling() then
-      ShowNotification("You have to be ~r~on duty~s~ to enable ~y~Axon Body 3~s~.")
-    else
+	  if not CheckBodycam(ped) then
+		ShowNotification("You have to wear a ~r~bodycam~s~ to use ~y~Axon Body 3~s~.")
+	  elseif not Config:CommandAccessHandling() then
+		  ShowNotification("You have to be ~r~on duty~s~ to enable ~y~Axon Body 3~s~.")
+		else
+			if disabled then
+			ShowNotification("Your ~y~bodycam~s~ is turned ~r~off~s~.")
+		else
       ActivateAB3()
       ShowNotification("~y~Axon Body 3~s~ has ~g~started recording~s~.")
+	  end
     end
   end
 end)
 
 RegisterCommand('axonon', function ()
-  if not Config:CommandAccessHandling() then
-    ShowNotification("You have to be ~r~on duty~s~ to use ~y~Axon Body 3~s~.")
-  else
+local ped = PlayerPedId()
+  if not CheckBodycam(ped) then
+    ShowNotification("You have to wear a ~r~bodycam~s~ to use ~y~Axon Body 3~s~.")
+  elseif not Config:CommandAccessHandling() then
+      ShowNotification("You have to be ~r~on duty~s~ to enable ~y~Axon Body 3~s~.")
+    else
     if activated then
       ShowNotification("~y~Axon Body 3~s~ is already ~g~recording~s~.")
     else
+		if disabled then
+		ShowNotification("Your ~y~bodycam~s~ is turned ~r~off~s~.")
+		else
       ActivateAB3()
       ShowNotification("~y~Axon Body 3~s~ has ~g~started recording~s~.")
+	  end
     end
   end
 end)
@@ -113,11 +151,17 @@ function ActivateAB3()
   end
 
   activated = true
-
+	local ped = PlayerPedId()
+	if texturechangeable > 0 then
+	SetPedComponentVariation(ped, componentID, drawableID, 1, 0)
+	end
   -- beeper
   Citizen.CreateThread(function()
     Citizen.Wait(12e4)
     while activated do
+		if not CheckBodycam(ped) then
+		DeactivateAB3()
+		end
       TriggerServerEvent("AB3:ClientBeep")
       Citizen.Wait(12e4)
     end
@@ -143,7 +187,10 @@ function DeactivateAB3()
   if not activated then
     return error("AB3 attempted to deactivate when already deactivated.")
   end
-
+	local ped = PlayerPedId()
+	if texturechangeable > 0 then
+	SetPedComponentVariation(ped, componentID, drawableID, 0, 0)
+	end
   activated = false
 end
 
@@ -156,4 +203,54 @@ function ShowNotification(message)
   BeginTextCommandThefeedPost("STRING")
   AddTextComponentSubstringPlayerName(message)
   EndTextCommandThefeedPostTicker(true, false)
+end
+
+-- Bodycam model check
+
+function CheckBodycam(ped)
+	if not bodycammodel then
+	return true
+	end
+	if GetEntityModel(PlayerPedId()) == `mp_m_freemode_01` then
+	local tbl_m = Config.bodycam_m
+	for i=1, #tbl_m do
+		if GetPedDrawableVariation(ped, convertInput(tbl_m[i])[1]) == convertInput(tbl_m[i])[2] then
+			componentID = convertInput(tbl_m[i])[1]
+			drawableID = convertInput(tbl_m[i])[2]
+			texturechangeable = convertInput(tbl_m[i])[3]
+			return true
+		end
+	end
+	elseif GetEntityModel(PlayerPedId()) == `mp_f_freemode_01` then
+	local tbl_f = Config.bodycam_f
+	for i=1, #tbl_f do
+		if GetPedDrawableVariation(ped, convertInput(tbl_f[i])[1]) == convertInput(tbl_f[i])[2] then
+		componentID = convertInput(tbl_f[i])[1]
+		drawableID = convertInput(tbl_f[i])[2]
+		texturechangeable = convertInput(tbl_f[i])[3]
+			return true
+		end
+	end
+	else
+	return false
+end	
+end
+
+local function convertInput(input)
+	local t1 = tonumber(splitString(input, ":")[1])
+	local t2 = tonumber(splitString(input, ":")[2])-1
+	local t3 = tonumber(splitString(input, ":")[3])
+	return({t1, t2, t3})
+end
+
+function splitString(inputstr, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t={} ; i=1
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        t[i] = str
+        i = i + 1
+    end
+    return t
 end
