@@ -23,13 +23,9 @@ The most realistic Axon Body 3 script, based off of [RCPisAwesome's Axon Body Ca
 Image 1: a real AB3 overlay  
 Image 2: this script  
 
-This script is intended for use with developers as a baseplate.  
 TFNRP’s Axon Body 3 script’s goal is to be as realistic as possible, with future plans for more audio files the real Axon Body 3 uses.  
 
 ## Installation
-
-No special installation or dependencies required.  
-You will need to edit client.lua to replace all exports.framework with your own.  
 
 Clone from Git or download manually  
 
@@ -39,7 +35,7 @@ $ git clone https://github.com/TFNRP/axonbody3.git
 
 ## Features
 
-* Uses the [TFNRP framework](https://github.com/TFNRP/framework) to allow use for LEO. Easy to change if you don't use our framework.  
+* Supports the [TFNRP framework](https://github.com/TFNRP/framework) to allow use for LEO.  
 * Just like the real thing. Beeps every 2 minutes whilst recording, audible to nearby players.  
 * Realistic overlay, with the same font used by Axon, ISO-8601 date format and transparent Axon logo.
 * Maximum server performance. Everything that can be done client-side, is.
@@ -49,8 +45,13 @@ $ git clone https://github.com/TFNRP/axonbody3.git
 
 ## Configuration
 
-In `config.lua`, change `CommandAccessHandling` to match your framework. If you would like to allow everyone to use the script, just return `true`.  
-You can also change `ThirdPersonMode` to `true` if you would like the axon overlay to be visible in third-person.  
+All config variables are client-side and only computed on a client's machine.  
+
+property | type | description
+-- | -- | --
+`CommandAccessHandling` | function | handling used to verify if the client should be able to enable AB3  
+`CommandBinding ` | string\|nil | keybind to use for on/off command. can be nil for no keybind  
+`ThirdPersonMode` | boolean | whether the axon overlay is also visible in third person  
 
 ## Credits
 
