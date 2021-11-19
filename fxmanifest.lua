@@ -10,11 +10,5 @@ client_script {
   'client.lua',
 }
 server_script 'server.lua'
-ui_page 'index.html'
-file {
-  'beep.wav',
-  'index.html',
-  'logo.png',
-  'style.css',
-  'KlartextMonoBold.ttf',
-}
+ui_page 'static/index.html'
+file 'static/*'
