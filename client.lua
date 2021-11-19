@@ -5,7 +5,7 @@ local activated = false
 
 -- compatibility with frameworks
 
-if GetConvar('tfnrp_framework_init') == 'true' then
+if GetConvar('tfnrp_framework_init', 'false') == 'true' then
   Config.CommandAccessHandling = function ()
     return exports.framework:GetLocalClientDuty() > 0
   end
