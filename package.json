@@ -1,0 +1,36 @@
+{
+  "name": "axonbody3",
+  "version": "1.0.0",
+  "description": "FiveM Axon Body 3",
+  "private": true,
+  "main": "",
+  "types": "./typings/index.d.ts",
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "eslint static && stylelint static",
+    "lint:fix": "eslint static --fix && stylelint static --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TFNRP/axonbody3.git"
+  },
+  "author": "Reece Stokes <hagen@hyena.gay>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TFNRP/axonbody3/issues"
+  },
+  "homepage": "https://github.com/TFNRP/axonbody3#readme",
+  "devDependencies": {
+    "@types/howler": "^2.1.1",
+    "@types/jquery": "^3.5.13",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "stylelint": "^14.2.0",
+    "stylelint-config-standard": "^24.0.0",
+    "typescript": "^4.5.4"
+  },
+  "engines": {
+    "node": "^17"
+  }
+}

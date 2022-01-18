@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 repository 'https://github.com/TFNRP/axonbody3'
-version '0.0.1'
+version '0.2.0'
 author 'Reece Stokes <hagen@hyena.gay>'
 
 client_script {
