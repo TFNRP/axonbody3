@@ -60,3 +60,7 @@ Special thanks to RCPisAwesome for allowing me to use his Axon beep sound.
 ## Screenshots
 
 ![img](https://i.imgur.com/mGZXo3l.png)
+
+## Contributing
+
+Please read [Contributing](https://github.com/TFNRP/axonbody3/blob/main/CONTRIBUTING.md) before submitting a pull request.
